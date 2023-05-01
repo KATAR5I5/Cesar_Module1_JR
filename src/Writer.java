@@ -14,7 +14,9 @@ public class Writer {
 
     void writeToFile(List<String> list, Path path, boolean encrypt, int key) {
         fileNameToWrite = createFileName(path, encrypt);
-        pathToWrite = path.getParent().resolve(fileNameToWrite);
+       if(path.getParent() == null){
+           pathToWrite = Path.of(fileNameToWrite);
+       }else pathToWrite = path.getParent().resolve(fileNameToWrite);
 
         try {
             if (Files.notExists(pathToWrite)) {
